@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   push:
-    branches:[ main ]
+    branches: [main] # Corregido: Se añadió el espacio después de los dos puntos
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   workflow_dispatch:
 
@@ -14,19 +14,19 @@ env:
 
 jobs:
   build:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest # Corregido: Se cambió 'run-on' por 'runs-on'
 
     env:
-      BUIlD_DIR: dist
+      BUILD_DIR: dist
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Show Variables
         run: |
-        echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION}}"
+          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}" # Corregido: Se añadieron 4 espacios de sangría
 
       - name: Build
         run: npm run build
         env:
-          APP_VERSION: '2.0.0'
+          APP_VERSION: "2.0.0"
