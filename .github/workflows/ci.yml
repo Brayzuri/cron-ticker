@@ -8,28 +8,45 @@ on:
 
   workflow_dispatch:
 
-env:
-  NODE_VERSION: "26"
-  APP_NAME: cron-ticker
+# env:
+#   NODE_VERSION: "26"
+#   APP_NAME: cron-ticker
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest # Corregido: Se cambió 'run-on' por 'runs-on'
+
+#     env:
+#       BUILD_DIR: dist
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Show Variables
+#         run: |
+#           echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}" # Corregido: Se añadieron 4 espacios de sangría
+
+#       - name: Build
+#         run: npm run build
+#         env:
+#           APP_VERSION: "2.0.0"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest # Corregido: Se cambió 'run-on' por 'runs-on'
-
-    env:
-      BUILD_DIR: dist
+  run-test:
+    name: Run Tests
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout Corregido
+        uses: actions/checkout@v4
 
-      - name: Show Variables
-        run: |
-          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}" # Corregido: Se añadieron 4 espacios de sangría
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-      - name: Build
-        run: npm run build
-        env:
-          APP_VERSION: "2.0.0"
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Run Tests
         run: npm test
